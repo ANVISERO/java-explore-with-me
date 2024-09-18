@@ -34,11 +34,14 @@ public class EventInputDto {
 
     private Location location;
 
+    @Builder.Default
     private Boolean paid = false;
 
     @PositiveOrZero
+    @Builder.Default
     private Integer participantLimit = 0;
 
+    @Builder.Default
     private Boolean requestModeration = true;
 
     @NotBlank

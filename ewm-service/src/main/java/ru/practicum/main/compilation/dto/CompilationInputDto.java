@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompilationInputDto {
+    @Builder.Default
     private List<Long> events = List.of();
 
     private Boolean pinned;

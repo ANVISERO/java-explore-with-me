@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         if (userRepo.existsByEmail(userInputDto.getEmail())) {
             throw new UserEmailConflictException("Email already used");
         }
-        return UserMapper.UserToOutputUserDto(userRepo.save(UserMapper.UserInputDtoToUser(userInputDto)));
+        return UserMapper.userToOutputUserDto(userRepo.save(UserMapper.userInputDtoToUser(userInputDto)));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
                 .build();
         UserSpecification userSpecification = new UserSpecification(criteria);
         return userRepo.findAll(userSpecification, pageable).stream()
-                .map(UserMapper::UserToOutputUserDto)
+                .map(UserMapper::userToOutputUserDto)
                 .collect(Collectors.toList());
 
     }

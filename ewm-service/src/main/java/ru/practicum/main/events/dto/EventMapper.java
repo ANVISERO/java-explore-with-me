@@ -40,7 +40,7 @@ public class EventMapper {
                 .description(event.getDescription())
                 .eventDate(event.getEventDate())
                 .id(event.getId())
-                .initiator(UserMapper.UserToOutputUserDto(event.getInitiator()))
+                .initiator(UserMapper.userToOutputUserDto(event.getInitiator()))
                 .location(Location.builder()
                         .lon(event.getLon())
                         .lat(event.getLat())
@@ -62,7 +62,7 @@ public class EventMapper {
                 .confirmedRequests(event.getConfirmedRequest())
                 .id(event.getId())
                 .eventDate(event.getEventDate())
-                .initiator(UserMapper.UserToOutputUserDto(event.getInitiator()))
+                .initiator(UserMapper.userToOutputUserDto(event.getInitiator()))
                 .paid(event.getPaid())
                 .title(event.getTitle())
                 .build();
