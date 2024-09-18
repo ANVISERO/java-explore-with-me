@@ -1,6 +1,14 @@
 server:
   port: ${SERVER_PORT:9090}
 
+logging:
+  level:
+    ru.practicum.stats: TRACE
+    org.springframework.orm.jpa: INFO
+    org.springframework.transaction: INFO
+    org.springframework.transaction.interceptor: TRACE
+    org.springframework.orm.jpa.JpaTransactionManager: DEBUG
+
 ---
 spring:
   config:
@@ -19,6 +27,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+    show-sql: true
   sql:
     init:
       mode: always
