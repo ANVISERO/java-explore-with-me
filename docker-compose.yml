@@ -1,3 +1,4 @@
+version: '3.1'
 services:
   stats-server:
     build: ./stats-service/stats-server
@@ -34,8 +35,10 @@ services:
       - DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm
       - DATASOURCE_USERNAME=ewm
       - DATASOURCE_PASSWORD=ewm
+      - CLIENT_URL=http://stats-server:9090
     depends_on:
       - ewm-db
+      - stats-server
 
   ewm-db:
     image: postgres:16.1

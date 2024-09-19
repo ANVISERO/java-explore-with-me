@@ -14,5 +14,5 @@ CREATE TABLE IF NOT EXISTS hits
     ip         VARCHAR(15)                             NOT NULL,
     time_stamp TIMESTAMP WITHOUT TIME ZONE             NOT NULL,
     CONSTRAINT pk_hit PRIMARY KEY (id),
-    CONSTRAINT fk_hit_on_apps FOREIGN KEY (app_id) REFERENCES apps (id)
+    CONSTRAINT fk_hits_on_apps FOREIGN KEY (app_id) REFERENCES apps (id)
 );
