@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @UtilityClass
 public class EventMapper {
 
-    public Event inputEventDtoToEvent(EventInputDto eventInputDto, User user, Category category) {
+    public Event eventInputDtoToEvent(final EventInputDto eventInputDto, final User user, final Category category) {
         return Event.builder()
                 .annotation(eventInputDto.getAnnotation())
                 .category(category)
@@ -31,7 +31,7 @@ public class EventMapper {
                 .build();
     }
 
-    public EventFullOutputDto eventToFullOutputEventDto(Event event) {
+    public EventFullOutputDto eventToEventFullOutputDto(final Event event) {
         return EventFullOutputDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.categoryToCategoryOutputDto(event.getCategory()))
@@ -55,8 +55,8 @@ public class EventMapper {
                 .build();
     }
 
-    public ShortOutputEventDto eventToShortOutputDto(Event event) {
-        return ShortOutputEventDto.builder()
+    public EventShortOutputDto eventToEventShortOutputDto(final Event event) {
+        return EventShortOutputDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.categoryToCategoryOutputDto(event.getCategory()))
                 .confirmedRequests(event.getConfirmedRequest())
@@ -68,7 +68,8 @@ public class EventMapper {
                 .build();
     }
 
-    public Event updateEvent(UpdateEventDto updateEventDto, Event event, Category category, State state) {
+    public Event updateEvent(final UpdateEventDto updateEventDto, final Event event,
+                             final Category category, final State state) {
         return Event.builder()
                 .annotation(updateEventDto.getAnnotation() != null ?
                         updateEventDto.getAnnotation() : event.getAnnotation())

@@ -43,10 +43,10 @@ public class UserRequestsController {
 
     @PatchMapping("/{userId}/requests/{requestId}/cancel")
     @ResponseStatus(HttpStatus.OK)
-    public RequestOutputDto repealRequest(@PathVariable final Long userId,
+    public RequestOutputDto cancelRequest(@PathVariable final Long userId,
                                           @PathVariable final Long requestId) {
         log.trace("PATCH request received to repeal user request from id = {}", userId);
-        return requestService.repealRequest(userId, requestId);
+        return requestService.cancelRequest(userId, requestId);
     }
 
     @GetMapping("/{userId}/events/{eventId}/requests")

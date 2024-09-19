@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestUpdateInputStatusDto {
+public final class RequestUpdateInputStatusDto {
     private List<Long> requestIds;
 
     private RequestStatus status;

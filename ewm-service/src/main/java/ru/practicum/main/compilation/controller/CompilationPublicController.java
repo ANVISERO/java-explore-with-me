@@ -37,6 +37,6 @@ public class CompilationPublicController {
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero final Integer from,
             @RequestParam(required = false, defaultValue = "10") @Positive final Integer size) {
         log.debug("GET request received to find all suitable events");
-        return compilationService.searchCompilation(pinned, from, size);
+        return compilationService.searchCompilations(pinned, from, size);
     }
 }

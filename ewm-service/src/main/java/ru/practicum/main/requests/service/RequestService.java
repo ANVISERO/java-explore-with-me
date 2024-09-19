@@ -12,7 +12,7 @@ public interface RequestService {
 
     List<RequestOutputDto> findUserRequests(final Long userId);
 
-    RequestOutputDto repealRequest(final Long userId, final Long requestId);
+    RequestOutputDto cancelRequest(final Long userId, final Long requestId);
 
     List<RequestOutputDto> userParticipatesInEvent(final Long userId, final Long eventId);
 

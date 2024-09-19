@@ -10,18 +10,18 @@ import java.util.Optional;
 
 public interface RequestRepo extends JpaRepository<Request, Long> {
     default List<Request> findConfirmedRequestsOnEvent(final Long eventId) {
-        return findAllByEvent_IdAndStatus(eventId, RequestStatus.CONFIRMED);
+        return findAllByEventIdAndStatus(eventId, RequestStatus.CONFIRMED);
     }
 
-    List<Request> findAllByEvent_IdAndStatus(final Long eventId, final RequestStatus state);
+    List<Request> findAllByEventIdAndStatus(final Long eventId, final RequestStatus state);
 
-    List<Request> findAllByRequester_Id(final Long requesterId);
+    List<Request> findAllByRequesterId(final Long requesterId);
 
-    Optional<Request> findAllByRequester_IdAndId(final Long requesterId, final Long id);
+    Optional<Request> findAllByRequesterIdAndId(final Long requesterId, final Long id);
 
     List<Request> findAllByIdIn(final List<Long> id);
 
-    List<Request> findAllByEvent_Id(final Long eventId);
+    List<Request> findAllByEventId(final Long eventId);
 
-    Boolean existsAllByRequester_IdAndEvent_Id(final Long userId, final Long eventId);
+    Boolean existsAllByRequesterIdAndEventId(final Long userId, final Long eventId);
 }

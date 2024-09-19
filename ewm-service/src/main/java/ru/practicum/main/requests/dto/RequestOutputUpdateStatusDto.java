@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestOutputUpdateStatusDto {
+public final class RequestOutputUpdateStatusDto {
     private List<RequestOutputDto> confirmedRequests;
 
     private List<RequestOutputDto> rejectedRequests;

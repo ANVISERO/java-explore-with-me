@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CategoryInputDto {
+public final class CategoryInputDto {
     @NotBlank
     @Size(max = 50)
     private String name;

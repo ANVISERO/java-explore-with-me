@@ -20,6 +20,7 @@ import ru.practicum.main.events.dto.EventFullOutputDto;
 import ru.practicum.main.events.dto.UpdateEventDto;
 import ru.practicum.main.events.service.EventsService;
 import ru.practicum.main.validator.annotation.EventStartBefore;
+import ru.practicum.stats.dto.model.Constant;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,18 +35,18 @@ public class AdminEventsController {
 
     @GetMapping("/events")
     @ResponseStatus(HttpStatus.OK)
-    public List<EventFullOutputDto> searchEvents(
+    public List<EventFullOutputDto> adminSearchEvents(
             @RequestParam(required = false) final List<Long> users,
             @RequestParam(required = false) final List<String> states,
             @RequestParam(required = false) final List<Long> categories,
             @RequestParam(name = "rangeStart", required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") final LocalDateTime rangeStart,
+            @DateTimeFormat(pattern = Constant.DATE_TIME_PATTERN) final LocalDateTime rangeStart,
             @RequestParam(name = "rangeEnd", required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") final LocalDateTime rangeEnd,
+            @DateTimeFormat(pattern = Constant.DATE_TIME_PATTERN) final LocalDateTime rangeEnd,
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero final Integer from,
             @RequestParam(required = false, defaultValue = "10") @Positive final Integer size) {
         log.debug("GET request received to find all events by filters");
-        return eventsService.searchEvents(users, states, categories, rangeStart, rangeEnd, from, size);
+        return eventsService.adminSearchEvents(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
     @PatchMapping("/events/{eventId}")

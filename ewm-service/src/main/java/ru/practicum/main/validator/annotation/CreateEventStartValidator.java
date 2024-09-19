@@ -17,6 +17,6 @@ public class CreateEventStartValidator implements ConstraintValidator<EventStart
     @Override
     public boolean isValid(final EventInputDto eventInputDto, final ConstraintValidatorContext ctx) {
         return (eventInputDto.getEventDate() != null &&
-                eventInputDto.getEventDate().isAfter(LocalDateTime.now().plusHours(check.min())));
+                LocalDateTime.now().plusHours(check.min()).isBefore(eventInputDto.getEventDate()));
     }
 }

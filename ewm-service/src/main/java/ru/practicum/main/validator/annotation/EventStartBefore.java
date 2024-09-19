@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(
-        validatedBy = {UpdateEventStartValidator.class, CreateEventStartValidator.class}
+        validatedBy = {UpdateEventStartDateTimeValidator.class, CreateEventStartValidator.class}
 )
 public @interface EventStartBefore {
     String message() default "{Cant create event at this time}";

@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public void deleteCategory(final Long catId) {
         CategoryValidator.checkCategoryExist(categoryRepository, catId);
-        if (eventRepo.existsByCategory_Id(catId)) {
+        if (eventRepo.existsByCategoryId(catId)) {
             throw new CategoryDeleteException(String.format("Category with id = %d does not exist", catId));
         }
         categoryRepository.deleteById(catId);

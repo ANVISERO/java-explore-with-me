@@ -8,10 +8,10 @@ import ru.practicum.main.events.model.State;
 import ru.practicum.main.events.repository.EventRepo;
 import ru.practicum.main.exception.exceptions.NotFoundException;
 import ru.practicum.main.exception.exceptions.RequestCreatedConflictException;
-import ru.practicum.main.requests.dto.RequestUpdateInputStatusDto;
+import ru.practicum.main.requests.dto.RequestMapper;
 import ru.practicum.main.requests.dto.RequestOutputDto;
 import ru.practicum.main.requests.dto.RequestOutputUpdateStatusDto;
-import ru.practicum.main.requests.dto.RequestMapper;
+import ru.practicum.main.requests.dto.RequestUpdateInputStatusDto;
 import ru.practicum.main.requests.model.Request;
 import ru.practicum.main.requests.model.RequestStatus;
 import ru.practicum.main.requests.repository.RequestRepo;
@@ -36,11 +36,11 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public RequestOutputDto createRequest(final Long userId, final Long eventId) {
         Event event = eventRepo.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("User dont have events with this id"));
+                .orElseThrow(() -> new NotFoundException(String.format("Not found event with id = %d", eventId)));
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(String.format("User with id %d does not exist", userId)));
-        if (requestRepo.existsAllByRequester_IdAndEvent_Id(userId, eventId)) {
-            throw new RequestCreatedConflictException("User Already create Request on this Event");
+        if (requestRepo.existsAllByRequesterIdAndEventId(userId, eventId)) {
+            throw new RequestCreatedConflictException("User already created Request on this Event");
         }
         if (event.getInitiator().getId().equals(userId)) {
             throw new RequestCreatedConflictException("Event initiator cant send request on this");
@@ -69,17 +69,18 @@ public class RequestServiceImpl implements RequestService {
     @Transactional(readOnly = true)
     public List<RequestOutputDto> findUserRequests(final Long userId) {
         UserValidator.checkUserExist(userRepo, userId);
-        return requestRepo.findAllByRequester_Id(userId).stream()
+        return requestRepo.findAllByRequesterId(userId).stream()
                 .map(RequestMapper::requestToOutputRequestDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public RequestOutputDto repealRequest(final Long userId, final Long requestId) {
+    public RequestOutputDto cancelRequest(final Long userId, final Long requestId) {
         UserValidator.checkUserExist(userRepo, userId);
-        Request patchRequest = requestRepo.findAllByRequester_IdAndId(userId, requestId)
-                .orElseThrow(() -> new NotFoundException("That request does not exist"));
+        Request patchRequest = requestRepo.findAllByRequesterIdAndId(userId, requestId)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("User with id = %d does not have request with id = %d", userId, requestId)));
         patchRequest.setStatus(RequestStatus.CANCELED);
         return RequestMapper.requestToOutputRequestDto(requestRepo.save(patchRequest));
     }
@@ -89,7 +90,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestOutputDto> userParticipatesInEvent(final Long userId, final Long eventId) {
         EventValidator.checkEventExist(eventRepo, eventId);
         UserValidator.checkUserExist(userRepo, userId);
-        return requestRepo.findAllByEvent_Id(eventId).stream()
+        return requestRepo.findAllByEventId(eventId).stream()
                 .map(RequestMapper::requestToOutputRequestDto)
                 .collect(Collectors.toList());
     }
@@ -100,7 +101,7 @@ public class RequestServiceImpl implements RequestService {
                                                             final RequestUpdateInputStatusDto updateState) {
         UserValidator.checkUserExist(userRepo, userId);
         Event event = eventRepo.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("User dont have events with this id"));
+                .orElseThrow(() -> new NotFoundException(String.format("Not found event with id = %d", eventId)));
         Integer alreadyConfirmed = requestRepo.findConfirmedRequestsOnEvent(eventId).size();
         if (event.getParticipantLimit() <= alreadyConfirmed) {
             throw new RequestCreatedConflictException("Event dont have vacancies to apply");
@@ -115,7 +116,7 @@ public class RequestServiceImpl implements RequestService {
             return RequestMapper.requestListToUpdateStateList(saved);
         } else {
             List<Request> result = new ArrayList<>();
-            for (int i = 0; i < event.getParticipantLimit() - alreadyConfirmed && i <= queryRequests.size() - 1; i++) {
+            for (int i = 0; i < event.getParticipantLimit() - alreadyConfirmed && i < queryRequests.size(); i++) {
                 Request iteration = queryRequests.get(i);
                 iteration.setStatus(RequestStatus.CONFIRMED);
                 result.add(iteration);

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HitDto {
+public final class HitDto {
     @NotBlank(message = "App field should not be empty")
     private String app;
 
@@ -26,7 +26,7 @@ public class HitDto {
     @NotBlank(message = "Ip field should not be empty")
     private String ip;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_PATTERN)
     @JsonProperty("timestamp")
     private LocalDateTime timestamp;
 }

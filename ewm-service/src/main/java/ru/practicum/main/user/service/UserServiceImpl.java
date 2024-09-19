@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserOutputDto saveUser(final UserInputDto userInputDto) {
         if (userRepo.existsByEmail(userInputDto.getEmail())) {
-            throw new UserEmailConflictException("Email already used");
+            throw new UserEmailConflictException("Email already exist");
         }
         return UserMapper.userToOutputUserDto(userRepo.save(UserMapper.userInputDtoToUser(userInputDto)));
     }
@@ -35,9 +35,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public List<UserOutputDto> getUsers(final List<Long> ids, final Integer from, final Integer size) {
         Pageable pageable = PageRequest.of(from / size, size);
-        UserCriteria criteria = UserCriteria.builder()
-                .ids(ids)
-                .build();
+        UserCriteria criteria = UserCriteria.builder().ids(ids).build();
         UserSpecification userSpecification = new UserSpecification(criteria);
         return userRepo.findAll(userSpecification, pageable).stream()
                 .map(UserMapper::userToOutputUserDto)

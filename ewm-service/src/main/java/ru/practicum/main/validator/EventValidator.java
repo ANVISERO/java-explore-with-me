@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 public class EventValidator {
     public void checkEventExist(final EventRepo eventRepo, final Long eventId) {
         if (!eventRepo.existsById(eventId)) {
-            throw new NotFoundException("Event with id %d does not exist");
+            throw new NotFoundException(String.format("Event with id %d does not exist", eventId));
         }
     }
 
     public void checkEventStartTime(final LocalDateTime rangeStart, final LocalDateTime rangeEnd) {
-        if (rangeStart != null && rangeEnd != null && rangeStart.isAfter(rangeEnd)) {
-            throw new EventTimeException("Start time can not be after End time");
+        if (rangeStart != null && rangeEnd != null && rangeEnd.isBefore(rangeStart)) {
+            throw new EventTimeException("Start time can not be after end time");
         }
     }
 }

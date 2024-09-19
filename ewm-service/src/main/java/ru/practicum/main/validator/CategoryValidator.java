@@ -9,7 +9,7 @@ import ru.practicum.main.exception.exceptions.NotFoundException;
 public class CategoryValidator {
     public void checkCategoryExist(final CategoryRepository categoryRepository, final Long catId) {
         if (!categoryRepository.existsById(catId)) {
-            throw new NotFoundException("Category with id %d does not exist");
+            throw new NotFoundException(String.format("Category with id = %d does not exist", catId));
         }
     }
 

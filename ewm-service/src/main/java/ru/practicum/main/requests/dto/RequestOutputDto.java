@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.main.requests.model.RequestStatus;
+import ru.practicum.stats.dto.model.Constant;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestOutputDto {
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+public final class RequestOutputDto {
+    @JsonFormat(pattern = Constant.DATE_TIME_PATTERN)
     private LocalDateTime created;
 
     private Long event;
