@@ -15,5 +15,5 @@ public interface CompilationService {
 
     CompilationOutputDto searchCompilationById(final Long compId);
 
-    List<CompilationOutputDto> searchCompilation(final Boolean pinned, final Integer from, final Integer size);
+    List<CompilationOutputDto> searchCompilations(final Boolean pinned, final Integer from, final Integer size);
 }

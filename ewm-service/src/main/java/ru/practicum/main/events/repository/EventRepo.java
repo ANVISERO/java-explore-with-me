@@ -22,12 +22,12 @@ public interface EventRepo extends JpaRepository<Event, Long> {
             "OR (CAST(:rangeEnd AS date) IS NULL AND e.eventDate > CAST(:rangeStart AS date)) " +
             "GROUP BY e.id " +
             "ORDER BY e.id ASC")
-    List<Event> findEventsByAdminFromParam(@Param("users") List<Long> users,
-                                           @Param("states") List<State> states,
-                                           @Param("categories") List<Long> categories,
-                                           @Param("rangeStart") LocalDateTime rangeStart,
-                                           @Param("rangeEnd") LocalDateTime rangeEnd,
-                                           Pageable pageable);
+    List<Event> findEventsByAdminFromParam(@Param("users") final List<Long> users,
+                                           @Param("states") final List<State> states,
+                                           @Param("categories") final List<Long> categories,
+                                           @Param("rangeStart") final LocalDateTime rangeStart,
+                                           @Param("rangeEnd") final LocalDateTime rangeEnd,
+                                           final Pageable pageable);
 
 
     @Query(value = "SELECT e FROM Event AS e " +
@@ -44,14 +44,14 @@ public interface EventRepo extends JpaRepository<Event, Long> {
             "AND (e.confirmedRequest < e.participantLimit OR :onlyAvailable = FALSE)" +
             "GROUP BY e.id " +
             "ORDER BY LOWER(:sort) ASC")
-    List<Event> findEventsByPublicFromParam(@Param("text") String text,
-                                            @Param("categories") List<Long> categories,
-                                            @Param("paid") Boolean paid,
-                                            @Param("rangeStart") LocalDateTime startTime,
-                                            @Param("rangeEnd") LocalDateTime endTime,
-                                            @Param("onlyAvailable") Boolean onlyAvailable,
-                                            @Param("sort") String sort,
-                                            Pageable pageable);
+    List<Event> findEventsByPublicFromParam(@Param("text") final String text,
+                                            @Param("categories") final List<Long> categories,
+                                            @Param("paid") final Boolean paid,
+                                            @Param("rangeStart") final LocalDateTime startTime,
+                                            @Param("rangeEnd") final LocalDateTime endTime,
+                                            @Param("onlyAvailable") final Boolean onlyAvailable,
+                                            @Param("sort") final String sort,
+                                            final Pageable pageable);
 
     @Query(value = "SELECT e FROM Event AS e " +
             "WHERE (e.state = 'PUBLISHED') " +
@@ -64,25 +64,25 @@ public interface EventRepo extends JpaRepository<Event, Long> {
             "GROUP BY e.id " +
             "ORDER BY LOWER(:sort) ASC")
     List<Event> findEventsByPublicFromParamWithoutText(
-            @Param("categories") List<Long> categories,
-            @Param("paid") Boolean paid,
-            @Param("rangeStart") LocalDateTime startTime,
-            @Param("rangeEnd") LocalDateTime endTime,
-            @Param("onlyAvailable") Boolean onlyAvailable,
-            @Param("sort") String sort,
-            Pageable pageable);
+            @Param("categories") final List<Long> categories,
+            @Param("paid") final Boolean paid,
+            @Param("rangeStart") final LocalDateTime startTime,
+            @Param("rangeEnd") final LocalDateTime endTime,
+            @Param("onlyAvailable") final Boolean onlyAvailable,
+            @Param("sort") final String sort,
+            final Pageable pageable);
 
-    default Optional<Event> findPublishedEventById(Long eventId) {
+    default Optional<Event> findPublishedEventById(final Long eventId) {
         return findAllByIdAndState(eventId, State.PUBLISHED);
     }
 
-    List<Event> findAllByInitiator_Id(Long id, Pageable pageable);
+    List<Event> findAllByInitiatorId(final Long id, final Pageable pageable);
 
-    Optional<Event> findAllByIdAndInitiator_Id(Long id, Long userId);
+    Optional<Event> findAllByIdAndInitiatorId(final Long id, final Long userId);
 
-    Optional<Event> findAllByIdAndState(Long eventId, State state);
+    Optional<Event> findAllByIdAndState(final Long eventId, final State state);
 
-    List<Event> findAllByIdIn(List<Long> ids);
+    List<Event> findAllByIdIn(final List<Long> ids);
 
-    Boolean existsByCategory_Id(Long categoryId);
+    Boolean existsByCategoryId(final Long categoryId);
 }

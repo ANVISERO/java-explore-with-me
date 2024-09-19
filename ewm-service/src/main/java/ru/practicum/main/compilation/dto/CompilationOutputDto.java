@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.main.events.dto.ShortOutputEventDto;
+import ru.practicum.main.events.dto.EventShortOutputDto;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompilationOutputDto {
-    private List<ShortOutputEventDto> events;
+public final class CompilationOutputDto {
+    private List<EventShortOutputDto> events;
 
     private Boolean pinned;
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.main.exception.exceptions.CategoryDeleteException;
 import ru.practicum.main.exception.exceptions.CategoryUniqueNameException;
-import ru.practicum.main.exception.exceptions.EventPatchConflictException;
+import ru.practicum.main.exception.exceptions.EventUpdateConflictException;
 import ru.practicum.main.exception.exceptions.EventStateConflictException;
 import ru.practicum.main.exception.exceptions.EventTimeException;
 import ru.practicum.main.exception.exceptions.NotFoundException;
@@ -54,7 +54,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleEventPatchConflictException(final EventPatchConflictException e) {
+    public ErrorResponse handleEventPatchConflictException(final EventUpdateConflictException e) {
         return sendErrorResponse(e);
     }
 

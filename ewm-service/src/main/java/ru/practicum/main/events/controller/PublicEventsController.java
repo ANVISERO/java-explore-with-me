@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.main.events.dto.EventFullOutputDto;
-import ru.practicum.main.events.dto.ShortOutputEventDto;
+import ru.practicum.main.events.dto.EventShortOutputDto;
 import ru.practicum.main.events.service.EventsService;
+import ru.practicum.stats.dto.model.Constant;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,29 +31,21 @@ public class PublicEventsController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ShortOutputEventDto> searchEventsWithParam(
+    public List<EventShortOutputDto> publicSearchEvents(
             @RequestParam(required = false) final String text,
             @RequestParam(required = false) final List<Long> categories,
             @RequestParam(required = false) final Boolean paid,
             @RequestParam(name = "rangeStart", required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") final LocalDateTime rangeStart,
+            @DateTimeFormat(pattern = Constant.DATE_TIME_PATTERN) final LocalDateTime rangeStart,
             @RequestParam(name = "rangeEnd", required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") final LocalDateTime rangeEnd,
+            @DateTimeFormat(pattern = Constant.DATE_TIME_PATTERN) final LocalDateTime rangeEnd,
             @RequestParam(required = false) final Boolean onlyAvailable,
             @RequestParam(required = false) final String sort,
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero final Integer from,
             @RequestParam(required = false, defaultValue = "10") @Positive final Integer size) {
         log.trace("GET request received to find all events with filters and text: {}", text);
-        return eventsService.searchEventsWithParam(text,
-                categories,
-                paid,
-                rangeStart,
-                rangeEnd,
-                onlyAvailable,
-                sort,
-                from,
-                size,
-                servletRequest.getRemoteAddr());
+        return eventsService.publicSearchEvents(text, categories, paid, rangeStart, rangeEnd,
+                onlyAvailable, sort, from, size, servletRequest.getRemoteAddr());
     }
 
     @GetMapping("/{id}")

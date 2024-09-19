@@ -9,6 +9,7 @@ import ru.practicum.main.category.dto.CategoryOutputDto;
 import ru.practicum.main.events.model.Location;
 import ru.practicum.main.events.model.State;
 import ru.practicum.main.user.dto.UserOutputDto;
+import ru.practicum.stats.dto.model.Constant;
 
 import java.time.LocalDateTime;
 
@@ -16,19 +17,19 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventFullOutputDto {
+public final class EventFullOutputDto {
     private String annotation;
 
     private CategoryOutputDto category;
 
     private Long confirmedRequests;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = Constant.DATE_TIME_PATTERN)
     private LocalDateTime createdOn;
 
     private String description;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = Constant.DATE_TIME_PATTERN)
     private LocalDateTime eventDate;
 
     private Long id;
@@ -41,7 +42,7 @@ public class EventFullOutputDto {
 
     private Integer participantLimit;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = Constant.DATE_TIME_PATTERN)
     private LocalDateTime publishedOn;
 
     private Boolean requestModeration;

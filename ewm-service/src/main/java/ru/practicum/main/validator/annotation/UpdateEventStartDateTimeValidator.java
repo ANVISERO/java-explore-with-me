@@ -6,7 +6,7 @@ import ru.practicum.main.events.dto.UpdateEventDto;
 
 import java.time.LocalDateTime;
 
-public class UpdateEventStartValidator implements ConstraintValidator<EventStartBefore, UpdateEventDto> {
+public class UpdateEventStartDateTimeValidator implements ConstraintValidator<EventStartBefore, UpdateEventDto> {
     EventStartBefore check;
 
     @Override

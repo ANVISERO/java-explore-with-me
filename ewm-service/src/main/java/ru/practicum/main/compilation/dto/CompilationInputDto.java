@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompilationInputDto {
+public final class CompilationInputDto {
     @Builder.Default
     private List<Long> events = List.of();
 

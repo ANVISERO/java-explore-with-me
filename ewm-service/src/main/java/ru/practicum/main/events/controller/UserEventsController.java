@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.main.events.dto.EventFullOutputDto;
 import ru.practicum.main.events.dto.EventInputDto;
-import ru.practicum.main.events.dto.ShortOutputEventDto;
+import ru.practicum.main.events.dto.EventShortOutputDto;
 import ru.practicum.main.events.dto.UpdateEventDto;
 import ru.practicum.main.events.service.EventsService;
 import ru.practicum.main.validator.annotation.EventStartBefore;
@@ -35,7 +35,7 @@ public class UserEventsController {
 
     @GetMapping("/{userId}/events")
     @ResponseStatus(HttpStatus.OK)
-    public List<ShortOutputEventDto> getUserEvents(
+    public List<EventShortOutputDto> getUserEvents(
             @PathVariable final Long userId,
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero final Integer from,
             @RequestParam(required = false, defaultValue = "10") @Positive final Integer size) {

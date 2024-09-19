@@ -20,7 +20,8 @@ public class UserSpecification implements Specification<User> {
     }
 
     @Override
-    public Predicate toPredicate(final Root<User> root, final CriteriaQuery<?> query, final CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(final Root<User> root, final CriteriaQuery<?> query,
+                                 final CriteriaBuilder criteriaBuilder) {
         if (criteria.getIds() != null) {
             Predicate category = root.get("id").in(criteria.getIds());
             this.predicateList.add(category);

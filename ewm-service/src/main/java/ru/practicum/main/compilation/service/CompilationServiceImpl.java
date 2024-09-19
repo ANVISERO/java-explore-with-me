@@ -60,7 +60,7 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CompilationOutputDto> searchCompilation(final Boolean pinned, final Integer from, final Integer size) {
+    public List<CompilationOutputDto> searchCompilations(final Boolean pinned, final Integer from, final Integer size) {
         Pageable pageable = PageRequest.of(from / size, size);
         CompilationCriteria criteria = CompilationCriteria.builder()
                 .pinned(pinned)
