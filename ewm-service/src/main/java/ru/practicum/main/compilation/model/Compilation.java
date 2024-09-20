@@ -15,7 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.practicum.main.events.model.Event;
+import ru.practicum.main.event.model.Event;
 
 import java.util.List;
 
