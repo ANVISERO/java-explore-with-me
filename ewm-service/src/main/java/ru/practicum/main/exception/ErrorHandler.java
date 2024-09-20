@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.main.exception.exceptions.CategoryDeleteException;
 import ru.practicum.main.exception.exceptions.CategoryUniqueNameException;
-import ru.practicum.main.exception.exceptions.EventUpdateConflictException;
 import ru.practicum.main.exception.exceptions.EventStateConflictException;
 import ru.practicum.main.exception.exceptions.EventTimeException;
+import ru.practicum.main.exception.exceptions.EventUpdateConflictException;
 import ru.practicum.main.exception.exceptions.NotFoundException;
 import ru.practicum.main.exception.exceptions.RequestCreatedConflictException;
 import ru.practicum.main.exception.exceptions.UserEmailConflictException;
+import ru.practicum.main.exception.exceptions.UserIdConflictException;
 
 @Slf4j
 @RestControllerAdvice
@@ -55,6 +56,12 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleEventPatchConflictException(final EventUpdateConflictException e) {
+        return sendErrorResponse(e);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleEventPatchConflictException(final UserIdConflictException e) {
         return sendErrorResponse(e);
     }
 

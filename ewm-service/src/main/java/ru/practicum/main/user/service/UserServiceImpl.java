@@ -10,7 +10,7 @@ import ru.practicum.main.user.dto.UserInputDto;
 import ru.practicum.main.user.dto.UserMapper;
 import ru.practicum.main.user.dto.UserOutputDto;
 import ru.practicum.main.user.repository.UserCriteria;
-import ru.practicum.main.user.repository.UserRepo;
+import ru.practicum.main.user.repository.UserRepository;
 import ru.practicum.main.user.repository.UserSpecification;
 import ru.practicum.main.validator.UserValidator;
 
@@ -20,15 +20,15 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepo userRepo;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
     public UserOutputDto saveUser(final UserInputDto userInputDto) {
-        if (userRepo.existsByEmail(userInputDto.getEmail())) {
+        if (userRepository.existsByEmail(userInputDto.getEmail())) {
             throw new UserEmailConflictException("Email already exist");
         }
-        return UserMapper.userToOutputUserDto(userRepo.save(UserMapper.userInputDtoToUser(userInputDto)));
+        return UserMapper.userToOutputUserDto(userRepository.save(UserMapper.userInputDtoToUser(userInputDto)));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(from / size, size);
         UserCriteria criteria = UserCriteria.builder().ids(ids).build();
         UserSpecification userSpecification = new UserSpecification(criteria);
-        return userRepo.findAll(userSpecification, pageable).stream()
+        return userRepository.findAll(userSpecification, pageable).stream()
                 .map(UserMapper::userToOutputUserDto)
                 .collect(Collectors.toList());
 
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(final Long userId) {
-        UserValidator.checkUserExist(userRepo, userId);
-        userRepo.deleteById(userId);
+        UserValidator.checkUserExist(userRepository, userId);
+        userRepository.deleteById(userId);
     }
 }

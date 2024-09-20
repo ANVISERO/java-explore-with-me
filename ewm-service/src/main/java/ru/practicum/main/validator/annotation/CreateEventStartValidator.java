@@ -2,7 +2,7 @@ package ru.practicum.main.validator.annotation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import ru.practicum.main.events.dto.EventInputDto;
+import ru.practicum.main.event.dto.EventInputDto;
 
 import java.time.LocalDateTime;
 

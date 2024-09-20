@@ -2,8 +2,8 @@ package ru.practicum.main.compilation.dto;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.main.compilation.model.Compilation;
-import ru.practicum.main.events.dto.EventMapper;
-import ru.practicum.main.events.model.Event;
+import ru.practicum.main.event.dto.EventMapper;
+import ru.practicum.main.event.model.Event;
 
 import java.util.List;
 import java.util.stream.Collectors;
